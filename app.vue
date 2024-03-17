@@ -14,13 +14,6 @@ html {
   font-family: var(--font-sans);
 }
 
-code,
-kbd,
-samp,
-pre {
-  font-family: var(--font-mono);
-}
-
 header .logo a.router-link-active {
   display: none;
 }
