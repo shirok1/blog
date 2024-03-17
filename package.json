@@ -16,6 +16,11 @@
     "@nuxtjs/plausible": "^0.2.4",
     "@types/node": "^20.11.24",
     "eslint": "^8.57.0",
-    "nuxt": "^3.10.3"
+    "nuxt": "^3.10.3",
+    "sass": "^1.72.0"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.0.12",
+    "@fontsource/ibm-plex-sans": "^5.0.19"
   }
 }
