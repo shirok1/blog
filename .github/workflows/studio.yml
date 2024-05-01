@@ -29,32 +29,12 @@ jobs:  # Build job
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Identify package manager
-        id: pkgman
-        run: |
-          cache=`[ -f "./pnpm-lock.yaml" ] && echo "pnpm" || ([ -f "./package-lock.json" ] && echo "npm" || ([ -f "./yarn.lock" ] && echo "yarn" || echo ""))`
-          package_manager=`[ ! -z "$cache" ] && echo "$cache" || echo "pnpm"`
-          echo "cache=$cache" >> $GITHUB_OUTPUT
-          echo "package_manager=$package_manager" >> $GITHUB_OUTPUT
-      - uses: pnpm/action-setup@v3
-        if: ${{ steps.pkgman.outputs.package_manager == 'pnpm' }}
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: ${{ steps.pkgman.outputs.cache }}
-      # - name: Setup Pages
-      #   uses: actions/configure-pages@v4
-      #   with:
-      #     # Automatically inject router.base in your Nuxt configuration file and set
-      #     # target to static (https://nuxtjs.org/docs/configuration-glossary/configuration-target/).
-      #     #
-      #     # You may remove this line if you want to manage the configuration yourself.
-      #     static_site_generator: nuxt
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -65,13 +45,13 @@ jobs:  # Build job
           restore-keys: |
             ${{ runner.os }}-nuxt-build-
       - name: Install dependencies
-        run: ${{ steps.pkgman.outputs.package_manager }} install
+        run: bun install
       - name: Install @nuxthq/studio
-        run: ${{ steps.pkgman.outputs.package_manager }} add -D @nuxthq/studio
+        run: bun add -D @nuxthq/studio
       - name: Create .nuxtrc
         run: echo $'\nautoImport=true\nmodules[]=@nuxthq/studio' >> .nuxtrc
       - name: Generate
-        run: npx nuxi build --preset github_pages
+        run: bunx nuxi build --preset github_pages
         env:
           NUXT_PUBLIC_STUDIO_API_URL: https://api.nuxt.studio
           NUXT_PUBLIC_STUDIO_TOKENS: fae6306adb23e182b2c0fb6249cbcd74897338ea38642b6557283b2d8925917e
