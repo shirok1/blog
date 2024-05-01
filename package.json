@@ -12,10 +12,10 @@
   "devDependencies": {
     "@nuxt-themes/alpine": "latest",
     "@nuxt/devtools": "^1.0.8",
-    "@nuxt/eslint-config": "^0.2.0",
-    "@nuxtjs/plausible": "^0.2.4",
+    "@nuxt/eslint-config": "^0.3.10",
+    "@nuxtjs/plausible": "^1.0.0",
     "@types/node": "^20.11.24",
-    "eslint": "^8.57.0",
+    "eslint": "^9.1.1",
     "nuxt": "^3.10.3",
     "sass": "^1.72.0"
   },
